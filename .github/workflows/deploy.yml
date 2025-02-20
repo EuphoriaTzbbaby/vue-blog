@@ -1,4 +1,4 @@
-name: Deploy Spring Boot to Aliyun
+name: Deploy Vue to Aliyun
 
 on:
   push:
@@ -16,10 +16,10 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Build Spring Boot Docker image
+    - name: Build Vue Docker image
       run: |
-        docker build -t my-springboot-app .
-        docker tag my-springboot-app:latest registry.cn-hangzhou.aliyuncs.com/my-repository/my-springboot-app:latest
+        docker build -t my-vue-app .
+        docker tag my-vue-app:latest registry.cn-hangzhou.aliyuncs.com/my-repository/my-vue-app:latest
 
     - name: Log in to Aliyun Container Registry
       uses: docker/login-action@v2
@@ -30,8 +30,8 @@ jobs:
 
     - name: Push Docker image to Aliyun Container Registry
       run: |
-        docker push registry.cn-hangzhou.aliyuncs.com/my-repository/my-springboot-app:latest
+        docker push registry.cn-hangzhou.aliyuncs.com/my-repository/my-vue-app:latest
 
-    - name: Deploy Spring Boot to ECS
+    - name: Deploy Vue to ECS
       run: |
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.ALIYUN_SSH_KEY }} root@<YOUR_ALIYUN_IP> 'docker pull registry.cn-hangzhou.aliyuncs.com/my-repository/my-springboot-app:latest && docker run -d -p 8080:8080 my-springboot-app'
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.ALIYUN_SSH_KEY }} root@<YOUR_ALIYUN_IP> 'docker pull registry.cn-hangzhou.aliyuncs.com/my-repository/my-vue-app:latest && docker run -d -p 80:80 my-vue-app'
