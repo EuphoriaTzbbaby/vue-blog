@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "allowJs": true, // 允许 JavaScript 文件
+    "checkJs": false, // 关闭对 JavaScript 文件的类型检查
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "target": "esnext",
     "module": "esnext",
     "strict": true,
